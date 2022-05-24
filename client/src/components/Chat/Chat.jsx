@@ -8,6 +8,8 @@ let socket;
 function Chat() {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
   const ENDPOINT = 'localhost:4000';
 
   useEffect(() => {
@@ -17,17 +19,26 @@ function Chat() {
 
     setName(name);
     setRoom(room)
-    
-    socket.emit('join', {name, room}, ()=>{
-      
+
+    socket.emit('join', { name, room }, () => {
+
     });
 
-    return ()=> {
+    return () => {
       socket.emit('disconnect');
-      
+
       socket.off();
     }
-  }, [ENDPOINT, location.search])
+  }, [ENDPOINT, location.search]);
+
+  useEffect(() => {
+    socket.on('message', (message) => {
+      setMessages([...messages, message]);
+    })
+  }, [messages]);
+
+  
+
   return (
     <h1>Chat</h1>
   );
