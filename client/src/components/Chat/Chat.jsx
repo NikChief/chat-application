@@ -11,6 +11,7 @@ let socket;
 function Chat() {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
+  const [users, setUsers] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const ENDPOINT = 'localhost:4000';
@@ -37,8 +38,11 @@ function Chat() {
   useEffect(() => {
     socket.on('message', (message) => {
       setMessages([...messages, message]);
-    })
-  }, [messages]);
+    });
+    socket.on("roomData", ({ users }) => {
+      setUsers(users);
+    });
+  }, [messages, users]);
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -53,7 +57,7 @@ function Chat() {
   return (
     <div className='outerContainer'>
       <div className='container'>
-        <InfoBar room={room}/>
+        <InfoBar room={room} users={users}/>
         < Messages messages={messages} name={name}/>
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
       </div>
