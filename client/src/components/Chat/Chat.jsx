@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 import './Chat.css';
+import InfoBar from '../InfoBar/InfoBar';
+import Input from '../Input/Input';
+import Messages from '../Messages/Messages';
 
 let socket;
 
@@ -37,10 +40,24 @@ function Chat() {
     })
   }, [messages]);
 
-  
+  const sendMessage = (event) => {
+    event.preventDefault();
+
+    if (message) {
+      socket.emit('sendMessage', message, () => setMessage(''))
+    }
+  }
+
+  console.log(message, messages);
 
   return (
-    <h1>Chat</h1>
+    <div className='outerContainer'>
+      <div className='container'>
+        <InfoBar room={room}/>
+        < Messages messages={messages} name={name}/>
+        <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+      </div>
+    </div>
   );
 }
 
