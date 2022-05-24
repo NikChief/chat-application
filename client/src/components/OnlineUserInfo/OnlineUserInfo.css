@@ -1,9 +1,9 @@
 .dropbtn {
-  background-color: #4CAF50;
+  background-color: #506791;
   color: white;
-  padding: 16px;
   font-size: 16px;
   border: none;
+  height: 100%;
 }
 
 /* Контейнер <div> - необходим для размещения выпадающего содержимого */
@@ -17,9 +17,9 @@
   display: none;
   position: absolute;
   background-color: #f1f1f1;
-  min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  width: 100%;
 }
 
 /* Ссылки внутри выпадающего списка */
@@ -42,5 +42,5 @@
 
 /* Изменение цвета фона кнопки раскрывающегося списка при отображении содержимого раскрывающегося списка */
 .dropdown:hover .dropbtn {
-  background-color: #3e8e41;
+  color: rgb(219, 214, 214);
 }
